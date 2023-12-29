@@ -13,6 +13,7 @@ import {
 } from "@dnd-kit/core";
 import { SortableContext, arrayMove } from "@dnd-kit/sortable";
 import { createPortal } from "react-dom";
+import Masonry, { ResponsiveMasonry } from "react-responsive-masonry";
 function KanbanBoard() {
   const [columns, setColumns] = useState<Column[]>([]);
   const [tasks, setTasks] = useState<Task[]>([]);
@@ -68,36 +69,39 @@ function KanbanBoard() {
   };
 
   return (
-    <div className="m-auto  flex   min-h-screen   w-full   items-center   overflow-x-auto   overflow-y-hidden   px-[40px]">
+    <div className="m-auto    min-h-screen   w-full   items-center   overflow-x-auto   overflow-y-hidden   px-[40px]">
+      <button
+        onClick={() => handleCreateColumn()}
+        className="flex my-10 mx-auto select-none items-center gap-2 font-medium h-[60px] w-[350px] min-w-[350px] cursor-pointer  rounded-lg bg-mainBackgroundColor border-2 border-columnBackgroundColor p-4  ring-rose-500 hover:ring-2"
+      >
+        <PlusIcons /> Add Column
+      </button>
       <DndContext
         sensors={sensors}
         onDragStart={onDragStart}
         onDragEnd={onDragEnd}
       >
-        <div className="m-auto flex gap-4">
-          <div className="flex flex-wrap gap-4">
-            <SortableContext items={columnsId}>
-              {columns.map(col => (
-                <ColumnContainer
-                  createTask={createTask}
-                  updateTask={updateTask}
-                  updateColumn={updateColumn}
-                  deleteColumn={deleteColumn}
-                  column={col}
-                  deleteTask={deleteTask}
-                  tasks={tasks.filter(task => task.columnId === col.id)}
-                  key={col.id}
-                ></ColumnContainer>
-              ))}
-            </SortableContext>
-          </div>
-
-          <button
-            onClick={() => handleCreateColumn()}
-            className="flex select-none items-center gap-2 font-medium h-[60px] w-[350px] min-w-[350px] cursor-pointer  rounded-lg bg-mainBackgroundColor border-2 border-columnBackgroundColor p-4  ring-rose-500 hover:ring-2"
-          >
-            <PlusIcons /> Add Column
-          </button>
+        <div className="w-full mx-auto max-w-[1500px]">
+          <SortableContext items={columnsId}>
+            <ResponsiveMasonry
+              columnsCountBreakPoints={{ 350: 1, 750: 2, 900: 4 }}
+            >
+              <Masonry gutter={"20px"}>
+                {columns.map(col => (
+                  <ColumnContainer
+                    createTask={createTask}
+                    updateTask={updateTask}
+                    updateColumn={updateColumn}
+                    deleteColumn={deleteColumn}
+                    column={col}
+                    deleteTask={deleteTask}
+                    tasks={tasks.filter(task => task.columnId === col.id)}
+                    key={col.id}
+                  ></ColumnContainer>
+                ))}
+              </Masonry>
+            </ResponsiveMasonry>
+          </SortableContext>
         </div>
 
         {createPortal(

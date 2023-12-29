@@ -54,7 +54,7 @@ const ColumnContainer = (props: Props) => {
       <div
         ref={setNodeRef}
         style={style}
-        className="bg-columnBackgroundColor opacity-35 ring-4 ring-rose-500 w-[350px] h-[500px] max-h-[500px] rounded-md flex flex-col "
+        className="bg-columnBackgroundColor opacity-35 ring-4 ring-rose-500  h-fit max-h-[500px] rounded-md flex flex-col "
       ></div>
     );
   }
@@ -63,7 +63,7 @@ const ColumnContainer = (props: Props) => {
     <div
       ref={setNodeRef}
       style={style}
-      className="bg-columnBackgroundColor w-[350px] h-[500px] max-h-[500px] rounded-md flex flex-col "
+      className="bg-columnBackgroundColor    h-fit max-h-[500px] rounded-md flex flex-col "
     >
       <div
         {...attributes}
