@@ -44,8 +44,17 @@ function KanbanBoard() {
     })
   );
 
+  const updateColumn = (id: Id, title: string) => {
+    console.log(id, title);
+    const newColumns = columns.map(col => {
+      if (col.id !== id) return col;
+      return { ...col, title };
+    });
+    setColumns(newColumns);
+  };
+
   return (
-    <div className="m-auto   flex   min-h-screen   w-full   items-center   overflow-x-auto   overflow-y-hidden   px-[40px]">
+    <div className="m-auto  flex   min-h-screen   w-full   items-center   overflow-x-auto   overflow-y-hidden   px-[40px]">
       <DndContext
         sensors={sensors}
         onDragStart={onDragStart}
@@ -56,6 +65,7 @@ function KanbanBoard() {
             <SortableContext items={columnsId}>
               {columns.map(col => (
                 <ColumnContainer
+                  updateColumn={updateColumn}
                   deleteColumn={deleteColumn}
                   column={col}
                   key={col.id}
@@ -76,6 +86,7 @@ function KanbanBoard() {
           <DragOverlay>
             {ActiveColumn && (
               <ColumnContainer
+                updateColumn={updateColumn}
                 column={ActiveColumn}
                 deleteColumn={deleteColumn}
               ></ColumnContainer>
@@ -94,6 +105,7 @@ function KanbanBoard() {
   }
 
   function onDragEnd(event: DragEndEvent) {
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const { active, over } = event;
 
     if (!over) return;

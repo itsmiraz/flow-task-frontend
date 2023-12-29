@@ -6,10 +6,11 @@ import { useState } from "react";
 interface Props {
   column: Column;
   deleteColumn: (id: Id) => void;
+  updateColumn: (id: Id, title: string) => void;
 }
 
 const ColumnContainer = (props: Props) => {
-  const { column, deleteColumn } = props;
+  const { column, deleteColumn, updateColumn } = props;
   const [ContentEditable, setContentEditable] = useState(false);
 
   const {
@@ -74,7 +75,21 @@ const ColumnContainer = (props: Props) => {
               {column.title}
             </div>
           )}
-          {ContentEditable && <input className="text-gray-700  font-normal" />}
+          {ContentEditable && (
+            <input
+              className="bg-black focus:border-rose-500 border rounded outline-none px-2"
+              value={column.title}
+              onChange={e => updateColumn(column.id, e.target.value)}
+              autoFocus
+              onBlur={() => {
+                setContentEditable(false);
+              }}
+              onKeyDown={e => {
+                if (e.key !== "Enter") return;
+                setContentEditable(false);
+              }}
+            />
+          )}
         </div>
         <button
           onClick={() => deleteColumn(column.id)}
