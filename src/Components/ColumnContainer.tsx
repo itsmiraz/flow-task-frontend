@@ -1,16 +1,31 @@
 import { useSortable } from "@dnd-kit/sortable";
 import DeleteIcon from "../assets/Icons/DeleteIcon";
-import { Column, Id } from "../types";
+import { Column, Id, Task } from "../types";
 import { CSS } from "@dnd-kit/utilities";
 import { useState } from "react";
+import PlusIcons from "../assets/Icons/PlusIcons";
+import TaskCard from "./TaskCard";
 interface Props {
   column: Column;
   deleteColumn: (id: Id) => void;
   updateColumn: (id: Id, title: string) => void;
+
+  createTask: (columnId: Id) => void;
+  tasks: Task[];
+  deleteTask: (id: Id) => void;
+  updateTask: (id: Id, content: string) => void;
 }
 
 const ColumnContainer = (props: Props) => {
-  const { column, deleteColumn, updateColumn } = props;
+  const {
+    column,
+    deleteColumn,
+    updateTask,
+    deleteTask,
+    tasks,
+    updateColumn,
+    createTask,
+  } = props;
   const [ContentEditable, setContentEditable] = useState(false);
 
   const {
@@ -26,6 +41,7 @@ const ColumnContainer = (props: Props) => {
       type: "Column",
       column,
     },
+    disabled: ContentEditable,
   });
 
   const style = {
@@ -98,6 +114,25 @@ const ColumnContainer = (props: Props) => {
           <DeleteIcon />
         </button>
       </div>{" "}
+      {/* Column task container */}
+      <div className="flex flex-grow flex-col gap-4 p-2 overflow-x-hidden overflow-y-auto">
+        {tasks?.map(task => (
+          <TaskCard
+            updateTask={updateTask}
+            deleteTask={deleteTask}
+            task={task}
+            key={task.id}
+          ></TaskCard>
+        ))}
+      </div>
+      {/* Column footer */}
+      <button
+        onClick={() => createTask(column.id)}
+        className="flex gap-2 items-center border-columnBackgroundColor border-2 rounded-md p-4 border-x-columnBackgroundColor hover:bg-mainBackgroundColor hover:text-rose-500 active:bg-black"
+      >
+        <PlusIcons />
+        Add task
+      </button>
     </div>
   );
 };
