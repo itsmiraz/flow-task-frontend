@@ -1,7 +1,7 @@
 import { useSortable } from "@dnd-kit/sortable";
 import DeleteIcon from "../assets/Icons/DeleteIcon";
 import { Column, Id, Task } from "../types";
-import { CSS } from "@dnd-kit/utilities";
+// import { CSS } from "@dnd-kit/utilities";
 import { useState } from "react";
 import PlusIcons from "../assets/Icons/PlusIcons";
 import TaskCard from "./TaskCard";
@@ -28,33 +28,29 @@ const ColumnContainer = (props: Props) => {
   } = props;
   const [ContentEditable, setContentEditable] = useState(false);
 
-  const {
-    setNodeRef,
-    attributes,
-    transform,
-    transition,
-    listeners,
-    isDragging,
-  } = useSortable({
-    id: column.id,
-    data: {
-      type: "Column",
-      column,
-    },
-    disabled: ContentEditable,
-  });
+  const { setNodeRef, attributes, transition, listeners, isDragging } =
+    useSortable({
+      id: column.id,
+      data: {
+        type: "Column",
+        column,
+      },
+      disabled: ContentEditable,
+    });
 
   const style = {
     transition,
-    transform: CSS.Transform.toString(transform),
   };
 
   if (isDragging) {
+    console.log(tasks?.length * 100);
     return (
       <div
         ref={setNodeRef}
         style={style}
-        className="bg-columnBackgroundColor opacity-35 ring-4 ring-rose-500  h-fit max-h-[500px] rounded-md flex flex-col "
+        className={`bg-columnBackgroundColor ${
+          tasks?.length !== 0 ? `h-[${tasks?.length * 100}px]` : "h-[200px]"
+        } opacity-40 ring-4 ring-blue-500   rounded-md flex flex-col `}
       ></div>
     );
   }
@@ -63,7 +59,7 @@ const ColumnContainer = (props: Props) => {
     <div
       ref={setNodeRef}
       style={style}
-      className="bg-columnBackgroundColor    h-fit max-h-[500px] rounded-md flex flex-col "
+      className="bg-columnBackgroundColor min-h-[200px] rounded-md flex flex-col "
     >
       <div
         {...attributes}
@@ -71,18 +67,7 @@ const ColumnContainer = (props: Props) => {
         className="bg-mainBackgroundColor text-md h-[60px] cursor-grab rounded-md rounded-b-none p-3 font-bold border-columnBackgroundColor border-4 flex items-center justify-between "
       >
         <div className="flex gap-2">
-          <div
-            className="
-        flex
-        justify-center
-        items-center
-        bg-columnBackgroundColor
-        px-2
-        py-1
-        text-sm
-        rounded-full
-        "
-          >
+          <div className="   flex   justify-center   items-center   bg-columnBackgroundColor   px-2   py-1   text-sm   rounded-full">
             0
           </div>
           {!ContentEditable && (
@@ -93,7 +78,7 @@ const ColumnContainer = (props: Props) => {
           )}
           {ContentEditable && (
             <input
-              className="bg-black focus:border-rose-500 border rounded outline-none px-2"
+              className="bg-black focus:border-blue-500 border rounded outline-none px-2"
               value={column.title}
               onChange={e => updateColumn(column.id, e.target.value)}
               autoFocus
@@ -128,7 +113,7 @@ const ColumnContainer = (props: Props) => {
       {/* Column footer */}
       <button
         onClick={() => createTask(column.id)}
-        className="flex gap-2 items-center border-columnBackgroundColor border-2 rounded-md p-4 border-x-columnBackgroundColor hover:bg-mainBackgroundColor hover:text-rose-500 active:bg-black"
+        className="flex gap-2 items-center border-columnBackgroundColor border-2 rounded-md p-4 border-x-columnBackgroundColor hover:bg-mainBackgroundColor hover:text-blue-500 active:bg-black"
       >
         <PlusIcons />
         Add task

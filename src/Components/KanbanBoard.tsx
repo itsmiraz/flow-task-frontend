@@ -2,6 +2,7 @@ import { useMemo, useState } from "react";
 import PlusIcons from "../assets/Icons/PlusIcons";
 import { Column, Id, Task } from "../types";
 import ColumnContainer from "./ColumnContainer";
+import Masonry, { ResponsiveMasonry } from "react-responsive-masonry";
 import {
   DndContext,
   DragEndEvent,
@@ -13,7 +14,6 @@ import {
 } from "@dnd-kit/core";
 import { SortableContext, arrayMove } from "@dnd-kit/sortable";
 import { createPortal } from "react-dom";
-import Masonry, { ResponsiveMasonry } from "react-responsive-masonry";
 function KanbanBoard() {
   const [columns, setColumns] = useState<Column[]>([]);
   const [tasks, setTasks] = useState<Task[]>([]);
@@ -72,7 +72,7 @@ function KanbanBoard() {
     <div className="m-auto    min-h-screen   w-full   items-center   overflow-x-auto   overflow-y-hidden   px-[40px]">
       <button
         onClick={() => handleCreateColumn()}
-        className="flex my-10 mx-auto select-none items-center gap-2 font-medium h-[60px] w-[350px] min-w-[350px] cursor-pointer  rounded-lg bg-mainBackgroundColor border-2 border-columnBackgroundColor p-4  ring-rose-500 hover:ring-2"
+        className="flex my-10 mx-auto select-none items-center gap-2 font-medium h-[60px] w-[350px] min-w-[350px] cursor-pointer  rounded-lg bg-mainBackgroundColor border-2 border-columnBackgroundColor p-4  ring-blue-500 hover:ring-2"
       >
         <PlusIcons /> Add Column
       </button>
@@ -81,10 +81,10 @@ function KanbanBoard() {
         onDragStart={onDragStart}
         onDragEnd={onDragEnd}
       >
-        <div className="w-full mx-auto max-w-[1500px]">
+        <div className="relative mx-auto max-w-[1440px]">
           <SortableContext items={columnsId}>
             <ResponsiveMasonry
-              columnsCountBreakPoints={{ 350: 1, 750: 2, 900: 4 }}
+              columnsCountBreakPoints={{ 350: 1, 750: 2, 900: 3 }}
             >
               <Masonry gutter={"20px"}>
                 {columns.map(col => (
@@ -134,7 +134,7 @@ function KanbanBoard() {
 
   function onDragStart(event: DragStartEvent) {
     if (event.active.data.current?.type === "Column") {
-      setActiveColumn(event.active.data.current?.column);
+      setActiveColumn(event?.active?.data?.current?.column);
     }
   }
 
