@@ -2,7 +2,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import logo from "/Image/logo.png";
 import { z } from "zod";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { useCookies } from "react-cookie";
 import { LoginValidation } from "@/Validation";
 import { loginUser } from "@/Services/Auth";
@@ -19,8 +19,11 @@ import {
 import { Input } from "@/Components/ui/input";
 import { Button, buttonVariants } from "@/Components/ui/button";
 import { Separator } from "@/Components/ui/separator";
+import { AuthProvider, TContextValue } from "@/Context/UserContext";
 
 const Login = () => {
+  const { User } = useContext(AuthProvider) as TContextValue;
+  console.log(User);
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [cookies, setCookie] = useCookies([TOKEN_NAME.FLOW_TASK_ACCESS_TOKEN]);
 

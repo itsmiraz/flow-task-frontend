@@ -1,7 +1,7 @@
 import { Outlet } from "react-router-dom";
 function Root() {
   return (
-    <div>
+    <div className="max-w-[1440px] mx-auto">
       <Outlet />
     </div>
   );
