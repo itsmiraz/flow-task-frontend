@@ -1,6 +1,5 @@
 import { useMemo, useState } from "react";
 import PlusIcons from "../assets/Icons/PlusIcons";
-import ColumnContainer from "./ColumnContainer";
 import Masonry, { ResponsiveMasonry } from "react-responsive-masonry";
 import {
   DndContext,
@@ -14,6 +13,8 @@ import {
 import { SortableContext, arrayMove } from "@dnd-kit/sortable";
 import { createPortal } from "react-dom";
 import { Column, Id, Task } from "@/Interfaces";
+import Header from "./shared/header";
+import ColumnContainer from "./ColumnContainer";
 function KanbanBoard() {
   const [columns, setColumns] = useState<Column[]>([]);
   const [tasks, setTasks] = useState<Task[]>([]);
@@ -70,6 +71,7 @@ function KanbanBoard() {
 
   return (
     <div className="m-auto text-[#ffff] bg-mainBackgroundColor   min-h-screen   w-full   items-center   overflow-x-auto   overflow-y-hidden   px-[40px]">
+      <Header />
       <button
         onClick={() => handleCreateColumn()}
         className="flex text-white my-10 mx-auto select-none items-center gap-2 font-medium h-[60px] w-[350px] min-w-[350px] cursor-pointer  rounded-lg bg-mainBackgroundColor border-2 border-columnBackgroundColor p-4  ring-blue-500 hover:ring-2"

@@ -6,7 +6,7 @@ import { useContext, useState } from "react";
 import { useCookies } from "react-cookie";
 import { LoginValidation } from "@/Validation";
 import { loginUser } from "@/Services/Auth";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { TOKEN_NAME } from "@/Constants";
 import {
   Form,
@@ -15,19 +15,18 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from "@/Components/ui/form";
-import { Input } from "@/Components/ui/input";
-import { Button, buttonVariants } from "@/Components/ui/button";
-import { Separator } from "@/Components/ui/separator";
+} from "@/components/ui/form";
+import { Input } from "@/components/ui/input";
+import { Button, buttonVariants } from "@/components/ui/button";
+import { Separator } from "@/components/ui/separator";
 import { AuthProvider } from "@/Context/UserContext";
 import { TContextValue } from "@/Interfaces";
 
 const Login = () => {
-  const { User } = useContext(AuthProvider) as TContextValue;
-  console.log(User);
+  const { setUser } = useContext(AuthProvider) as TContextValue;
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [cookies, setCookie] = useCookies([TOKEN_NAME.FLOW_TASK_ACCESS_TOKEN]);
-
+  const navigate = useNavigate();
   const [Error, setError] = useState<string>("");
   // 1. Define your form.
   const form = useForm<z.infer<typeof LoginValidation>>({
@@ -49,14 +48,18 @@ const Login = () => {
 
       if (result.status === 201) {
         // console.log(result);
-        localStorage.setItem("currentUser", JSON.stringify(result.data.data));
+        console.log(result.data.token);
+        setUser(result.data.data);
         setCookie(TOKEN_NAME.FLOW_TASK_ACCESS_TOKEN, result.data.token);
+        localStorage.setItem("currentUser", JSON.stringify(result.data.data));
+        navigate("/board");
         setError("");
       }
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (err: any) {
-      if (err.response.data.message) {
-        setError(err.response.data.message);
+      console.log(err);
+      if (err.response?.data?.message) {
+        setError(err.response?.data?.message);
       } else {
         setError("Some Thing Went Wrong");
       }

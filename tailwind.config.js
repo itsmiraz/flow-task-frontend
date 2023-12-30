@@ -9,11 +9,6 @@ module.exports = {
   ],
   prefix: "",
   theme: {
-    colors: {
-      white: "#fffff",
-      mainBackgroundColor: "#0D1117",
-      columnBackgroundColor: "#161C22",
-    },
     container: {
       center: true,
       padding: "2rem",
@@ -23,6 +18,9 @@ module.exports = {
     },
     extend: {
       colors: {
+        white: "#fffff",
+        mainBackgroundColor: "#0D1117",
+        columnBackgroundColor: "#161C22",
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
         ring: "hsl(var(--ring))",

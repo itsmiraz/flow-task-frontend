@@ -17,7 +17,7 @@ import { z } from "zod";
 import { useState } from "react";
 import { useCookies } from "react-cookie";
 import { RegisterValidation } from "@/Validation";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { RegisterUser } from "@/Services/Auth";
 import { TOKEN_NAME } from "@/Constants";
 
@@ -25,6 +25,8 @@ const Register = () => {
   const [Error, setError] = useState<string>("");
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [cookies, setCookie] = useCookies([TOKEN_NAME.FLOW_TASK_ACCESS_TOKEN]);
+
+  const navigate = useNavigate();
 
   // 1. Define your form.
   const form = useForm<z.infer<typeof RegisterValidation>>({
@@ -40,7 +42,7 @@ const Register = () => {
   // 2. Define a submit handler.
   async function onSubmit(values: z.infer<typeof RegisterValidation>) {
     // Do something with the form values.
-
+    // console.log(values);
     try {
       const result = await RegisterUser(values);
 
@@ -48,12 +50,14 @@ const Register = () => {
         // console.log(result);
         setCookie(TOKEN_NAME.FLOW_TASK_ACCESS_TOKEN, result.data.token);
         localStorage.setItem("currentUser", result.data.data);
+        navigate("/board");
         setError("");
       }
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (err: any) {
-      if (err.response.data.message) {
-        setError(err.response.data.message);
+      console.log(err);
+      if (err.response?.data.message) {
+        setError(err.response?.data?.message);
       } else {
         setError("Some Thing Went Wrong");
       }

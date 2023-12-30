@@ -1,5 +1,5 @@
 import { Outlet } from "react-router-dom";
-function Root() {
+function RootLayout() {
   return (
     <div className="max-w-[1440px] mx-auto">
       <Outlet />
@@ -7,4 +7,4 @@ function Root() {
   );
 }
 
-export default Root;
+export default RootLayout;

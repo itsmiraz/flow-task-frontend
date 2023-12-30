@@ -3,12 +3,16 @@ import { Dispatch, SetStateAction } from "react";
 export type TRegisterUser = {
   name: string;
   email: string;
-  isSeller: boolean;
   password: string;
 };
 export type TUser = {
+  _id: string;
   name: string;
   email: string;
+  password: string;
+  profileImg: string;
+  role: "admin" | "user";
+  isDeleted: boolean;
 };
 
 export interface TContextValue {
