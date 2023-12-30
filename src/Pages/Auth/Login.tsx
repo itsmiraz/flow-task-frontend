@@ -19,7 +19,8 @@ import {
 import { Input } from "@/Components/ui/input";
 import { Button, buttonVariants } from "@/Components/ui/button";
 import { Separator } from "@/Components/ui/separator";
-import { AuthProvider, TContextValue } from "@/Context/UserContext";
+import { AuthProvider } from "@/Context/UserContext";
+import { TContextValue } from "@/Interfaces";
 
 const Login = () => {
   const { User } = useContext(AuthProvider) as TContextValue;

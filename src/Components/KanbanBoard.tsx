@@ -1,6 +1,5 @@
 import { useMemo, useState } from "react";
 import PlusIcons from "../assets/Icons/PlusIcons";
-import { Column, Id, Task } from "../types";
 import ColumnContainer from "./ColumnContainer";
 import Masonry, { ResponsiveMasonry } from "react-responsive-masonry";
 import {
@@ -14,6 +13,7 @@ import {
 } from "@dnd-kit/core";
 import { SortableContext, arrayMove } from "@dnd-kit/sortable";
 import { createPortal } from "react-dom";
+import { Column, Id, Task } from "@/Interfaces";
 function KanbanBoard() {
   const [columns, setColumns] = useState<Column[]>([]);
   const [tasks, setTasks] = useState<Task[]>([]);

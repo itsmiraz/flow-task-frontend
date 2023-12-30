@@ -1,10 +1,10 @@
 import { useSortable } from "@dnd-kit/sortable";
 import DeleteIcon from "../assets/Icons/DeleteIcon";
-import { Column, Id, Task } from "../types";
 // import { CSS } from "@dnd-kit/utilities";
 import { useState } from "react";
 import PlusIcons from "../assets/Icons/PlusIcons";
 import TaskCard from "./TaskCard";
+import { Column, Id, Task } from "@/Interfaces";
 interface Props {
   column: Column;
   deleteColumn: (id: Id) => void;

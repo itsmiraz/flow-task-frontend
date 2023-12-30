@@ -1,16 +1,7 @@
-import { createContext, useState, Dispatch, SetStateAction } from "react";
-
-export interface TContextValue {
-  User: TUser | null;
-  setUser: Dispatch<SetStateAction<TUser | null>>;
-}
+import { TContextValue, TUser } from "@/Interfaces";
+import { createContext, useState } from "react";
 
 export const AuthProvider = createContext<TContextValue | undefined>(undefined);
-
-type TUser = {
-  name: string;
-  email: string;
-};
 
 const UserContext = ({
   children,
@@ -19,7 +10,9 @@ const UserContext = ({
   children: any;
 }) => {
   const [User, setUser] = useState<TUser | null>(null);
+
   const value: TContextValue = { User, setUser };
+
   return (
     <AuthProvider.Provider value={value}>{children}</AuthProvider.Provider>
   );

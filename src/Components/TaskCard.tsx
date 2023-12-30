@@ -1,6 +1,6 @@
 import { useState } from "react";
-import { Id, Task } from "../types";
 import DeleteIcon from "../assets/Icons/DeleteIcon";
+import { Id, Task } from "@/Interfaces";
 
 interface Props {
   task: Task;
