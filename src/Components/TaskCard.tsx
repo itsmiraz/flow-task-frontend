@@ -24,7 +24,7 @@ function TaskCard(props: Props) {
         <textarea
           className="
              h-[90%]
-             w-full resize-none border-none rounded bg-transparent text-white focus:outline-none
+             w-full resize-none border-none rounded bg-mainBackgroundColor text-white focus:outline-none
              "
           value={task.content}
           autoFocus

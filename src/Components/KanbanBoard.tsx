@@ -69,10 +69,10 @@ function KanbanBoard() {
   };
 
   return (
-    <div className="m-auto    min-h-screen   w-full   items-center   overflow-x-auto   overflow-y-hidden   px-[40px]">
+    <div className="m-auto text-[#ffff] bg-mainBackgroundColor   min-h-screen   w-full   items-center   overflow-x-auto   overflow-y-hidden   px-[40px]">
       <button
         onClick={() => handleCreateColumn()}
-        className="flex my-10 mx-auto select-none items-center gap-2 font-medium h-[60px] w-[350px] min-w-[350px] cursor-pointer  rounded-lg bg-mainBackgroundColor border-2 border-columnBackgroundColor p-4  ring-blue-500 hover:ring-2"
+        className="flex text-white my-10 mx-auto select-none items-center gap-2 font-medium h-[60px] w-[350px] min-w-[350px] cursor-pointer  rounded-lg bg-mainBackgroundColor border-2 border-columnBackgroundColor p-4  ring-blue-500 hover:ring-2"
       >
         <PlusIcons /> Add Column
       </button>

@@ -67,7 +67,7 @@ const ColumnContainer = (props: Props) => {
         className="bg-mainBackgroundColor text-md h-[60px] cursor-grab rounded-md rounded-b-none p-3 font-bold border-columnBackgroundColor border-4 flex items-center justify-between "
       >
         <div className="flex gap-2">
-          <div className="   flex   justify-center   items-center   bg-columnBackgroundColor   px-2   py-1   text-sm   rounded-full">
+          <div className="   flex text-[#ffff]   justify-center   items-center   bg-columnBackgroundColor   px-2   py-1   text-sm   rounded-full">
             0
           </div>
           {!ContentEditable && (
@@ -78,7 +78,7 @@ const ColumnContainer = (props: Props) => {
           )}
           {ContentEditable && (
             <input
-              className="bg-black focus:border-blue-500 border rounded outline-none px-2"
+              className="bg-[#000000] bg focus:border-blue-500 border rounded outline-none px-2"
               value={column.title}
               onChange={e => updateColumn(column.id, e.target.value)}
               autoFocus
