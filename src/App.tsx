@@ -1,8 +1,8 @@
 import KanbanBoard from "./Components/KanbanBoard";
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
-import Home from "./Pages/Home/Home";
 import Root from "./Layout/Root";
 import Login from "./Pages/Auth/Login";
+import Register from "./Pages/Auth/Register";
 
 function App() {
   const router = createBrowserRouter([
@@ -14,6 +14,10 @@ function App() {
         {
           path: "/",
           element: <Login />,
+        },
+        {
+          path: "/auth/register",
+          element: <Register />,
         },
         {
           path: "board",
